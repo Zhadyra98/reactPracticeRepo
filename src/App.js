@@ -6,8 +6,16 @@ class WhoAmI extends Component{
     super(props);
     this.state = {//динамическое Состояние- объект , а пропс мы не можем менять они только для чтения
       years: 27,
-      text:'Add year'
+      text:'Add year',
+      position: ''
     }
+  }
+
+  commitInputChahges = (e, color) => {
+    console.log(color);
+    this.setState({
+      position: e.target.value
+    })
   }
 
   nextYear = () => {
@@ -19,11 +27,19 @@ class WhoAmI extends Component{
 
   render() {
     const {name, surname, link} = this.props;
+    const {years, position} = this.state;
     return (
       <div className="class1">
         <button onClick={this.nextYear}>{this.state.text}</button> {/*Eto analog addEventListener */}
-        <h1>My name is {name},  surname - {surname}, age - {this.state.years}</h1>
+        <h1>My name is {name},  
+        surname - {surname}, 
+        age - {years}, 
+        position - {position}</h1>
         <a href={link}>My profile</a>
+        <form>
+          <span>Eneter job</span>
+          <input type="text" onChange={(e) => this.commitInputChahges(e, 'some color')}/>
+        </form>
       </div>
     )
   }
@@ -44,3 +60,16 @@ export default App;
 //1)у компонетов имеются внутренние стейты
 //2)стейты напрямую менять нельзя используем setState()
 //3)setState()- asynchronic operation
+
+//Есть три способа использования методов в классах(почему мы именно используем стрелочные )
+//1) стерлосные ф-и, так как у них не имеется контекст вызова, ссылаются на родительский контекст -> this определяется правильно
+//2) обычный метод + .bind() в конструкторе, таким образом мы четко присваем контекст вызова к ф-и
+//3)обычный метод nextYear + <button onClick={() => this.nextYear()}>{text}</button>   таким образом мы вызываем метод с контекстом вызова родительским
+
+// <input type="text" onChange={(e) => this.commitInputChahges(e, 'some color')}/>
+//  commitInputChahges = (e, color) => {
+//    console.log(color);
+//    this.setState({
+ //     position: e.target.value
+//    })
+ // } //   А ТАКИМ ОБРАЗОМ ПЕРЕДАЕМ АРГУМЕНТЫ В НАШИ МЕТОДЫ 
