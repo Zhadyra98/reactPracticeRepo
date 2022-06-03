@@ -1,4 +1,5 @@
 import { Component } from 'react';
+
 import './App.css';
 
 class WhoAmI extends Component{
@@ -26,10 +27,14 @@ class WhoAmI extends Component{
   }
 
   render() {
+
     const {name, surname, link} = this.props;
     const {years, position} = this.state;
+
+
     return (
-      <div className="class1">
+      // <>Реакт сам поймет что это тег Fragment
+      <>
         <button onClick={this.nextYear}>{this.state.text}</button> {/*Eto analog addEventListener */}
         <h1>My name is {name},  
         surname - {surname}, 
@@ -40,7 +45,7 @@ class WhoAmI extends Component{
           <span>Eneter job</span>
           <input type="text" onChange={(e) => this.commitInputChahges(e, 'some color')}/>
         </form>
-      </div>
+      </>
     )
   }
 }
